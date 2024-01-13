@@ -23,3 +23,18 @@ Need a [package from CRAN](https://r-lib.github.io/pkgdepends/reference/pkg_refs
 ```
 pkgname
 ```
+
+So, the example `packages` file contains three lines where 2 are dedicate to install a package on GitHub as well as CRAN and the last line is an empty line:
+
+```
+coatless-rpkg/drawr
+visualize
+
+```
+
+**Note:** Not leaving an empty line will result in a warning message during the "Retrieve packages from `./packages` file" step.
+
+```
+Warning message:
+In readLines("./packages") : incomplete final line found on './packages'
+```
