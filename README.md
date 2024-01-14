@@ -2,7 +2,11 @@
 
 This repository serves as an example that strictly follows the [guidance](https://r-wasm.github.io/rwasm/articles/github-actions.html) for setting up a mini-CRAN repo for webR R WASM Package binaries.
 
-If you would like to have the repository where you develop your R package build and act as a deployment repository, then see the [coatless-tutorials/webr-github-action-wasm-binaries](https://github.com/coatless-tutorials/webr-github-action-wasm-binaries) repository. 
+This repository is part of a series of repositories exploring the topic.
+
+- **[Org-focused webR/WASM Package Repository without a `{pkgdown}` website (Preferred)](https://github.com/coatless-tutorials/webr-org-gh-action)  [This repository]**
+- [Unified GitHub Action Deployment using artifacts of R WASM Package binaries and {pkgdown} website](https://github.com/coatless-tutorials/webr-unified-gh-workflow)
+- [Separate GitHub Action Deployment onto `gh-pages` branch of R WASM Package binaries and {pkgdown} website](https://github.com/coatless-tutorials/webr-github-action-wasm-binaries)
 
 ## Setup `packages`
 
