@@ -1,4 +1,4 @@
-# webr-org-gh-action
+# GitHub Action for an Org webR WASM R Package Repository
 
 This repository serves as an example that strictly follows the [guidance](https://r-wasm.github.io/rwasm/articles/github-actions.html) for setting up a mini-CRAN repo for webR R WASM Package binaries.
 
