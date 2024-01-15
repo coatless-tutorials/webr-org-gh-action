@@ -8,6 +8,7 @@ This repository is part of a series of repositories exploring the topic.
 - [Unified GitHub Action Deployment using artifacts of R WASM Package binaries and {pkgdown} website](https://github.com/coatless-tutorials/webr-unified-gh-workflow)
 - [Separate GitHub Action Deployment onto `gh-pages` branch of R WASM Package binaries and {pkgdown} website](https://github.com/coatless-tutorials/webr-github-action-wasm-binaries)
 
+
 ## Setup `packages`
 
 When trying to setup an environment for your own packages, please make sure to modify the `packages` file to contain the appropriate [package reference value supported by `pak`](https://r-lib.github.io/pkgdepends/reference/pkg_refs.html). In the case of generating [R WASM package binaries from GitHub](https://r-lib.github.io/pkgdepends/reference/pkg_refs.html#github-packages-github-), you can achieve this with: 
@@ -45,6 +46,8 @@ In readLines("./packages") : incomplete final line found on './packages'
 
 ## Setup Github Pages on the Repository
 
+After the desired packages are specified, the next step is to enable GitHub Pages for the repository.
+
 1. Click on the **Settings** tab for the repository
 2. Under "Code and automation", select the **Pages** menu item.
 3. Under the "Source" option select **GitHub Action** from the drop down.
@@ -59,11 +62,48 @@ The R WASM Package binaries are either built by updating/committing files in the
 You can trigger a workflow deploy by:
 
 1. Go to the **Actions** tab of the repository
-2. Selecting the **Build and deploy wasm R package repository** workflow
-3. Clicking on **Run workflow** dropdown
-4. Pressing the **Run workflow** button.
+2. Select the **Build and deploy wasm R package repository** workflow
+3. Click on **Run workflow** dropdown
+4. Press the green **Run workflow** button.
 
 ![Example of triggering a manual deployment of the repository](figures/github-pages-trigger-cran-repo-build.png)
+
+## Observing Data Uploaded 
+
+When the workflow completes, the packages and repository structure is uploaded onto GitHub Pages through
+an artifact. The artifacts are stored for 90 days (by default) and can be found under the workflow
+summary:
+
+1. Click on the **Actions** tab for the repository
+2. Select a completed build
+3. Press the **Summary** option
+4. Under "Artifacts", click on **github-pages** to download the built repository
+
+![](figures/github-actions-webr-repo-github-pages-artifact.png)
+
+If you have permissions to the repository, you should be able to download the `github-pages` artifact
+by clicking on the name above. This will trigger the download of `artifact.zip` that when extracted
+will have the form of: 
+
+```sh
+├── bin
+│   └── emscripten
+│       └── contrib
+│           └── 4.3
+│               ├── PACKAGES
+│               ├── PACKAGES.gz
+│               ├── PACKAGES.rds
+│               ├── mypackage_1.0.0.data
+│               ├── mypackage_1.0.0.js.metadata
+│               └── mypackage_1.0.0.tgz
+└── src
+    └── contrib
+        ├── PACKAGES
+        ├── PACKAGES.gz
+        ├── PACKAGES.rds
+        └── mypackage_1.0.0.tar.gz
+```
+
 
 ## Usage inside webR
 
