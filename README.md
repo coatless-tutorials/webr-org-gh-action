@@ -81,6 +81,8 @@ summary:
 
 ![](figures/github-actions-webr-repo-github-pages-artifact.png)
 
+**Note:** The size of the repository with only two R-based packages requires 1.52 MB of compressed space.
+
 If you have permissions to the repository, you should be able to download the `github-pages` artifact
 by clicking on the name above. This will trigger the download of `artifact.zip` that when extracted
 will have the form of: 
@@ -104,6 +106,7 @@ will have the form of:
         └── mypackage_1.0.0.tar.gz
 ```
 
+where `mypackage_1.0.0` should resemble the names of the packages specified in the `packages` file setup above.
 
 ## Usage inside webR
 
