@@ -1,93 +1,140 @@
+
+
 # GitHub Action for an Org webR WASM R Package Repository
 
-This repository serves as an example that strictly follows the [guidance](https://r-wasm.github.io/rwasm/articles/github-actions.html) for setting up a mini-CRAN repo for webR R WASM Package binaries.
+This repository serves as an example of the recommended setup for
+creating a mini-CRAN repository for webR R WASM Package binaries. It
+aligns closely with the guidance provided in the webR project’s [Build R
+packages using GitHub
+Actions](https://r-wasm.github.io/rwasm/articles/github-actions.html)
+documentation.
 
-This repository is part of a series of repositories exploring the topic.
+This repository is part of a series exploring three different
+approaches:
 
-- **[Org-focused webR/WASM Package Repository without a `{pkgdown}` website (Preferred)](https://github.com/coatless-tutorials/webr-org-gh-action)  [This repository]**
-- [Unified GitHub Action Deployment using artifacts of R WASM Package binaries and {pkgdown} website](https://github.com/coatless-tutorials/webr-unified-gh-workflow)
-- [Separate GitHub Action Deployment onto `gh-pages` branch of R WASM Package binaries and {pkgdown} website](https://github.com/coatless-tutorials/webr-github-action-wasm-binaries)
-
+- **[Org-focused webR/WASM Package Repository without a `{pkgdown}`
+  website](https://github.com/coatless-tutorials/webr-org-gh-action)
+  \[This repository\]**
+  - This repository serves as an example implementation of the webR
+    Project’s [Build R packages using GitHub
+    Actions](https://r-wasm.github.io/rwasm/articles/github-actions.html)
+    documentation. It focuses on creating an organizational webR/WASM
+    Package Repository without the inclusion of a `{pkgdown}` website
+    that is meant to be triggered through workflow dispatches or changes
+    to a `packages` file. Explore this repository for insights into
+    structuring your own organization-centric webR package repository
+    using GitHub Actions.
+- [Unified GitHub Action Deployment using artifacts of R WASM Package
+  binaries and {pkgdown}
+  website](https://github.com/coatless-tutorials/webr-unified-gh-workflow)
+  - This repository introduces a unified approach to GitHub Action
+    deployment by using artifacts. Unlike the previous strategy, this
+    allows for the simultaneous deployment of R WASM binaries and the
+    associated `{pkgdown}` website by using artifacts. This approach
+    helps prevent a continuous increase in repository size. Explore this
+    repository to understand how the use of artifacts can streamline
+    your deployment process while maintaining a clean and efficient
+    version control history.
+- [Separate GitHub Action Deployment onto `gh-pages` branch of R WASM
+  Package binaries and {pkgdown}
+  website](https://github.com/coatless-tutorials/webr-github-action-wasm-binaries)
+  - This repository adopts a workflow approach familiar to R package
+    developers using `usethis`. It employs separate GitHub Actions for
+    generating the R WASM package binaries and `{pkgdown}` website. The
+    key aspect of this approach is the merging and deployment of both
+    outputs through the `gh-pages` branch. This strategy enhances
+    clarity in tracking file changes and provides a transparent view of
+    the deployed content. Explore this repository to understand how this
+    approach can streamline your R package deployment workflow.
 
 ## Setup `packages`
 
-When trying to setup an environment for your own packages, please make sure to modify the `packages` file to contain the appropriate [package reference value supported by `pak`](https://r-lib.github.io/pkgdepends/reference/pkg_refs.html). In the case of generating [R WASM package binaries from GitHub](https://r-lib.github.io/pkgdepends/reference/pkg_refs.html#github-packages-github-), you can achieve this with: 
+When trying to setup an environment for your own packages, please make
+sure to modify the `packages` file to contain the appropriate [package
+reference value supported by
+`pak`](https://r-lib.github.io/pkgdepends/reference/pkg_refs.html). In
+the case of generating [R WASM package binaries from
+GitHub](https://r-lib.github.io/pkgdepends/reference/pkg_refs.html#github-packages-github-),
+you can achieve this with:
 
-```
-gh-username/reponame
-```
+    gh-username/reponame
 
-Or, more formally with: 
+Or, more formally with:
 
-```
-github::gh-username/reponame
-```
+    github::gh-username/reponame
 
-Need a [package from CRAN](https://r-lib.github.io/pkgdepends/reference/pkg_refs.html#cran-packages-cran-)? This can be specified as: 
+Need a [package from
+CRAN](https://r-lib.github.io/pkgdepends/reference/pkg_refs.html#cran-packages-cran-)?
+This can be specified as:
 
-```
-pkgname
-```
+    pkgname
 
-So, the example `packages` file contains three lines where 2 are dedicate to install a package on GitHub as well as CRAN and the last line is an empty line:
+So, the example `packages` file contains three lines where 2 are
+dedicate to install a package on GitHub as well as CRAN and the last
+line is an empty line:
 
-```
-coatless-rpkg/drawr
-visualize
+    coatless-rpkg/drawr
+    visualize
 
-```
+**Note:** Not leaving an empty line will result in a warning message
+during the “Retrieve packages from `./packages` file” step.
 
-**Note:** Not leaving an empty line will result in a warning message during the "Retrieve packages from `./packages` file" step.
-
-```
-Warning message:
-In readLines("./packages") : incomplete final line found on './packages'
-```
+    Warning message:
+    In readLines("./packages") : incomplete final line found on './packages'
 
 ## Setup Github Pages on the Repository
 
-After the desired packages are specified, the next step is to enable GitHub Pages for the repository.
+After the desired packages are specified, the next step is to enable
+GitHub Pages for the repository.
 
-1. Click on the **Settings** tab for the repository
-2. Under "Code and automation", select the **Pages** menu item.
-3. Under the "Source" option select **GitHub Action** from the drop down.
-4. In the "Custom Domain" settings, make sure that **Enforce HTTPS** is checked.
+1.  Click on the **Settings** tab for the repository
+2.  Under “Code and automation”, select the **Pages** menu item.
+3.  Under the “Source” option select **GitHub Action** from the drop
+    down.
+4.  In the “Custom Domain” settings, make sure that **Enforce HTTPS** is
+    checked.
 
-![Example configuration of GitHub Pages](figures/github-pages-configuration-for-org-repository.png)
+![Example configuration of GitHub
+Pages](figures/github-pages-configuration-for-org-repository.png)
 
 ## Trigger a build
 
-The R WASM Package binaries are either built by updating/committing files in the repository or by manually triggering a workflow deploy.
+The R WASM Package binaries are either built by updating/committing
+files in the repository or by manually triggering a workflow deploy.
 
 You can trigger a workflow deploy by:
 
-1. Go to the **Actions** tab of the repository
-2. Select the **Build and deploy wasm R package repository** workflow
-3. Click on **Run workflow** dropdown
-4. Press the green **Run workflow** button.
+1.  Go to the **Actions** tab of the repository
+2.  Select the **Build and deploy wasm R package repository** workflow
+3.  Click on **Run workflow** dropdown
+4.  Press the green **Run workflow** button.
 
-![Example of triggering a manual deployment of the repository](figures/github-pages-trigger-cran-repo-build.png)
+![Example of triggering a manual deployment of the
+repository](figures/github-pages-trigger-cran-repo-build.png)
 
-## Observing Data Uploaded 
+## Observing Data Uploaded
 
-When the workflow completes, the packages and repository structure is uploaded onto GitHub Pages through
-an artifact. The artifacts are stored for 90 days (by default) and can be found under the workflow
-summary:
+When the workflow completes, the packages and repository structure is
+uploaded onto GitHub Pages through an artifact. The artifacts are stored
+for 90 days (by default) and can be found under the workflow summary:
 
-1. Click on the **Actions** tab for the repository
-2. Select a completed build
-3. Press the **Summary** option
-4. Under "Artifacts", click on **github-pages** to download the built repository
+1.  Click on the **Actions** tab for the repository
+2.  Select a completed build
+3.  Press the **Summary** option
+4.  Under “Artifacts”, click on **github-pages** to download the built
+    repository
 
 ![](figures/github-actions-webr-repo-github-pages-artifact.png)
 
-**Note:** The size of the repository with only two R-based packages requires 1.52 MB of compressed space.
+**Note:** The size of the repository with only two R-based packages
+requires 1.52 MB of compressed space.
 
-If you have permissions to the repository, you should be able to download the `github-pages` artifact
-by clicking on the name above. This will trigger the download of `artifact.zip` that when extracted
-will have the form of: 
+If you have permissions to the repository, you should be able to
+download the `github-pages` artifact by clicking on the name above. This
+will trigger the download of `artifact.zip` that when extracted will
+have the form of:
 
-```sh
+``` sh
 ├── bin
 │   └── emscripten
 │       └── contrib
@@ -106,16 +153,15 @@ will have the form of:
         └── mypackage_1.0.0.tar.gz
 ```
 
-where `mypackage_1.0.0` should resemble the names of the packages specified in the `packages` file setup above.
+where `mypackage_1.0.0` should resemble the names of the packages
+specified in the `packages` file setup above.
 
 ## Usage inside webR
 
 Inside of a webR session, you can access the built binaries by using the
 repository’s GitHub Pages URL, e.g.
 
-```
-https://gh-username.github.io/repo-name
-```
+    https://gh-username.github.io/repo-name
 
 This can be set either using `options()` or specifying the location in
 each `webr::install()` call.
@@ -124,20 +170,32 @@ The easiest is probably to define the location webR should search for in
 `options()`.
 
 ``` r
-# Run once at the start of the session
+## Run once at the start of the session
+
+# Specify where to search for the R WASM packages
+list_of_repos = c(
+    "https://gh-username.github.io/repo-name", 
+    "https://other-gh-username.github.io/another-repo", 
+    "https://username.r-universe.dev", 
+    "https://repo.r-wasm.org/"
+  )
+
+# Set the repository URLs
 options(
-  repos = c("https://gh-username.github.io/repo-name", 
-            "https://repo.r-wasm.org/")
+  repos = list_of_repos,
+  webr_pkg_repos = list_of_repos
 )
 
-# Call
+# Install the R WASM Package
 webr::install("pkgname")
 ```
 
-Otherwise, you can specify it each time:
+Otherwise, the `repos` can be specified each time:
 
 ``` r
-webr::install("pkgname", "https://gh-username.github.io/repo-name")
+webr::install("pkgname", repos = "https://gh-username.github.io/repo-name")
+
+webr::install("pkgname", repos = list_of_repos)
 ```
 
 <div>
@@ -175,7 +233,7 @@ webr::install(
 )
 # Check to see if the function works
 mat_2x2 <- matrix(1:4, nrow = 2)
-drawr::draw_matrix(mat_2x2, show_cell_indices = TRUE)
+drawr::draw_matrix(mat_2x2, show_indices = "cell")
 # View help documentation
 ?drawr::draw_matrix
 ```
