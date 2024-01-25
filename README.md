@@ -2,6 +2,13 @@
 
 # GitHub Action for an Org webR WASM R Package Repository
 
+<!-- badges: start -->
+
+[![webr-build-binary](https://github.com/coatless-tutorials/webr-org-gh-action/actions/workflows/deploy.yml/badge.svg)](https://github.com/coatless-tutorials/webr-org-gh-action/actions/workflows/deploy.yml)
+<!-- badges: end -->
+
+## Introduction
+
 This repository serves as an example of the recommended setup for
 creating a mini-CRAN repository for webR R WASM Package binaries. It
 aligns closely with the guidance provided in the webR project’s [Build R
@@ -46,6 +53,19 @@ approaches:
     clarity in tracking file changes and provides a transparent view of
     the deployed content. Explore this repository to understand how this
     approach can streamline your R package deployment workflow.
+
+## Key Contents
+
+Here’s a quick summary of what you can find in the repository:
+
+- [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml): A
+  replicate of the [`r-wasm/actions`’
+  deploy-cran-repo.yml](https://github.com/r-wasm/actions/blob/d21bf7da50e539df543bbee973087ec585deaba6/examples/deploy-cran-repo.yml)
+  workflow.
+- [`packages`](_pkgdown.yml): A list of R packages that adheres to
+  [package reference
+  values](https://r-lib.github.io/pkgdepends/reference/pkg_refs.html)
+  supported by `pak`.
 
 ## Setup `packages`
 
